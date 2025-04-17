@@ -31,8 +31,8 @@ private final class ListViewBackingLayer: CALayer {
     override func display() {
     }
 }
-
-public final class ListViewBackingView: UIView {
+//public final class ListViewBackingView: UIView {
+open class ListViewBackingView: UIView {
     public fileprivate(set) weak var target: ListView?
     
     override public class var layerClass: AnyClass {
@@ -150,6 +150,9 @@ private func cancelContextGestures(view: UIView) {
 }
 
 open class ListView: ASDisplayNode, ASScrollViewDelegate, ASGestureRecognizerDelegate {
+    open func listViewImplView() -> ListViewBackingView? {
+        return nil
+    }
     public struct ScrollingIndicatorState {
         public struct Item {
             public var index: Int
@@ -476,8 +479,10 @@ open class ListView: ASDisplayNode, ASScrollViewDelegate, ASGestureRecognizerDel
         super.init()
         
         self.isAccessibilityContainer = true
-        
-        self.setViewBlock({ () -> UIView in
+        self.setViewBlock({  [weak self] () -> UIView in
+            if let v = self?.listViewImplView() {
+                return v
+            }
             return ListViewBackingView()
         })
         

@@ -13,6 +13,14 @@ public enum ListSectionHeaderActionType {
 }
 
 public final class ListSectionHeaderNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ListSectionHeaderNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ListSectionHeaderNodeView.self
+    }
+#endif
     private let backgroundLayer: SimpleLayer
     private let label: ImmediateTextNode
     private var actionButtonLabel: ImmediateTextNode?

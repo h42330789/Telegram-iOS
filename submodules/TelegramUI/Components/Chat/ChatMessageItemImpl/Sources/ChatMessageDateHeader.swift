@@ -120,6 +120,14 @@ private func dateHeaderTimestampId(timestamp: Int32) -> Int32 {
 }
 
 public final class ChatMessageDateHeaderNode: ListViewItemHeaderNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageDateHeaderNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageDateHeaderNodeView.self
+    }
+#endif
     public let labelNode: TextNode
     public let backgroundNode: NavigationBackgroundNode
     public let stickBackgroundNode: ASImageNode
@@ -453,6 +461,14 @@ private let avatarFont = avatarPlaceholderFont(size: 16.0)
 private let maxVideoLoopCount = 3
 
 public final class ChatMessageAvatarHeaderNodeImpl: ListViewItemHeaderNode, ChatMessageAvatarHeaderNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageAvatarHeaderNodeImplView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageAvatarHeaderNodeImplView.self
+    }
+#endif
     private let context: AccountContext
     private var presentationData: ChatPresentationData
     private let controllerInteraction: ChatControllerInteraction?

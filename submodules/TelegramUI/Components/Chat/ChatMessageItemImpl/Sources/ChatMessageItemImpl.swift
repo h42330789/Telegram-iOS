@@ -222,7 +222,7 @@ public final class ChatMessageItemImpl: ChatMessageItem, CustomStringConvertible
     let dateHeader: ChatMessageDateHeader
     let avatarHeader: ChatMessageAvatarHeader?
 
-    public let headers: [ListViewItemHeader]
+    public var headers: [ListViewItemHeader]
     
     public var message: Message {
         switch self.content {
@@ -389,6 +389,8 @@ public final class ChatMessageItemImpl: ChatMessageItem, CustomStringConvertible
         var headers: [ListViewItemHeader] = []
         if !self.disableDate {
             headers.append(self.dateHeader)
+        } else {
+            print("no-dateHeader")
         }
         if case .messageOptions = associatedData.subject {
             headers = []

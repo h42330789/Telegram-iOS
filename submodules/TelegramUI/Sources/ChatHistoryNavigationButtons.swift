@@ -7,6 +7,15 @@ import TelegramPresentationData
 import WallpaperBackgroundNode
 
 final class ChatHistoryNavigationButtons: ASDisplayNode {
+#if DEBUG
+    class ChatHistoryNavigationButtonsView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return ChatHistoryNavigationButtonsView.self
+    }
+#endif
+
     struct ButtonState: Equatable {
         var isEnabled: Bool
         

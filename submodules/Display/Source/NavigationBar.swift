@@ -138,6 +138,14 @@ public enum NavigationPreviousAction: Equatable {
 private var sharedIsReduceTransparencyEnabled = UIAccessibility.isReduceTransparencyEnabled
 
 public final class NavigationBackgroundNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    public class NavigationBackgroundNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return NavigationBackgroundNodeView.self
+    }
+#endif
     private var _color: UIColor
 
     public var color: UIColor {
@@ -459,6 +467,14 @@ public protocol NavigationBarHeaderView: UIView {
 }
 
 open class NavigationBar: ASDisplayNode {
+#if DEBUG
+    class NavigationBarView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return NavigationBarView.self
+    }
+#endif
     public static var defaultSecondaryContentHeight: CGFloat {
         return 38.0
     }

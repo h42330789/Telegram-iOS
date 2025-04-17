@@ -23,6 +23,15 @@ private let iconFont = Font.with(size: 30.0, design: .round, weight: .bold)
 private let iconTextBackgroundImage = generateStretchableFilledCircleImage(radius: 6.0, color: UIColor(rgb: 0xFF9500))
 
 public final class ListMessageSnippetItemNode: ListMessageNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ListMessageSnippetItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ListMessageSnippetItemNodeView.self
+    }
+#endif
+
     private let contextSourceNode: ContextExtractedContentContainingNode
     private let containerNode: ContextControllerSourceNode
     private let extractedBackgroundImageNode: ASImageNode

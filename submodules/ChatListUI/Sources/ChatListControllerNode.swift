@@ -45,6 +45,14 @@ public enum ChatListContainerNodeFilter: Equatable {
 }
 
 public final class ChatListContainerNode: ASDisplayNode, ASGestureRecognizerDelegate {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListContainerNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListContainerNodeView.self
+    }
+#endif
     private let context: AccountContext
     private weak var controller: ChatListControllerImpl?
     let location: ChatListControllerLocation
@@ -1041,6 +1049,14 @@ public final class ChatListContainerNode: ASDisplayNode, ASGestureRecognizerDele
 }
 
 final class ChatListControllerNode: ASDisplayNode, ASGestureRecognizerDelegate {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListControllerNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListControllerNodeView.self
+    }
+#endif
     private let context: AccountContext
     private let location: ChatListControllerLocation
     private var presentationData: PresentationData

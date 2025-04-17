@@ -99,6 +99,14 @@ private struct ChatControllerNodeDerivedLayoutState {
 }
 
 class ChatNodeContainer: ASDisplayNode {
+    #if DEBUG
+    class ChatNodeContainerView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return ChatNodeContainerView.self
+    }
+    #endif
     var contentNode: ASDisplayNode {
         return self
     }
@@ -107,8 +115,26 @@ class ChatNodeContainer: ASDisplayNode {
         super.init()
     }
 }
+class ContentDimNode: ASDisplayNode {
+    #if DEBUG
+    class ContentDimNodeView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return ContentDimNodeView.self
+    }
+    #endif
+}
 
 class HistoryNodeContainer: ASDisplayNode {
+#if DEBUG
+class HistoryNodeContainerView: _ASDisplayView {
+    
+}
+override public class func viewClass() -> AnyClass {
+    return HistoryNodeContainerView.self
+}
+#endif
     var isSecret: Bool {
         didSet {
             if self.isSecret != oldValue {
@@ -412,7 +438,11 @@ class ChatControllerNode: ASDisplayNode, ASScrollViewDelegate {
         self.wrappingNode = SpaceWarpNodeImpl()
         
         self.contentContainerNode = ChatNodeContainer()
+        #if DEBUG
+        self.contentDimNode = ContentDimNode()
+        #else
         self.contentDimNode = ASDisplayNode()
+        #endif
         self.contentDimNode.isUserInteractionEnabled = false
         self.contentDimNode.backgroundColor = UIColor(white: 0.0, alpha: 0.2)
         self.contentDimNode.alpha = 0.0

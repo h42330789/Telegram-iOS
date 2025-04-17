@@ -462,6 +462,22 @@ private func mapVisibility(_ visibility: ListViewItemNodeVisibility, boundsSize:
 }
 
 public class ChatMessageBubbleItemNode: ChatMessageItemView, ChatMessagePreviewItemNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageBubbleItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageBubbleItemNodeView.self
+    }
+    class ChatBubbleMainContainerNode: ContextControllerSourceNode {
+        // 提供一个_ASDisplayView的子类即可
+        class ChatBubbleMainContainerNodeView: _ASDisplayView { }
+        // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+        override public class func viewClass() -> AnyClass {
+            return ChatBubbleMainContainerNodeView.self
+        }
+    }
+#endif
     public class ContentContainer {
         public let contentMessageStableId: UInt32
         public let sourceNode: ContextExtractedContentContainingNode
@@ -728,7 +744,11 @@ public class ChatMessageBubbleItemNode: ChatMessageItemView, ChatMessagePreviewI
     
     required public init(rotated: Bool) {
         self.mainContextSourceNode = ContextExtractedContentContainingNode()
+#if DEBUG
+        self.mainContainerNode = ChatBubbleMainContainerNode()
+        #else
         self.mainContainerNode = ContextControllerSourceNode()
+        #endif
         self.backgroundWallpaperNode = ChatMessageBubbleBackdrop()
         self.contentContainersWrapperNode = ASDisplayNode()
         

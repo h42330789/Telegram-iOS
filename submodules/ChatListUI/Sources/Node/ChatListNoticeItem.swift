@@ -89,6 +89,14 @@ private let textFont = Font.regular(15.0)
 private let smallTextFont = Font.regular(14.0)
 
 final class ChatListNoticeItemNode: ItemListRevealOptionsItemNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListNoticeItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListNoticeItemNodeView.self
+    }
+#endif
     private let contentContainer: ASDisplayNode
     private let titleNode: TextNodeWithEntities
     private let textNode: TextNode

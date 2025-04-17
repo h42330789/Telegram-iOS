@@ -370,8 +370,25 @@ private final class PrivateContentLayerRestoreContext {
         }
     }
 }
-
+#if DEBUG
+class ContentNodeSourceNode: ASDisplayNode {
+    class ContentNodeSourceNodeView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return ContentNodeSourceNodeView.self
+    }
+}
+#endif
 open class SpaceWarpNodeImpl: ASDisplayNode, SpaceWarpNode {
+#if DEBUG
+class SpaceWarpNodeImplView: _ASDisplayView {
+    
+}
+override public class func viewClass() -> AnyClass {
+    return SpaceWarpNodeImplView.self
+}
+#endif
     private final class Shockwave {
         let startPoint: CGPoint
         var timeValue: CGFloat = 0.0
@@ -407,7 +424,11 @@ open class SpaceWarpNodeImpl: ASDisplayNode, SpaceWarpNode {
     private var layoutParams: (size: CGSize, cornerRadius: CGFloat)?
     
     override public init() {
+#if DEBUG
+        self.contentNodeSource = ContentNodeSourceNode()
+#else
         self.contentNodeSource = ASDisplayNode()
+#endif
         
         self.backgroundView = UIView()
         self.backgroundView.backgroundColor = .black

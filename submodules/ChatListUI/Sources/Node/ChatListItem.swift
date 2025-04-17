@@ -951,7 +951,23 @@ private let telegramCodeRegex = try? NSRegularExpression(pattern: "(?<=: )\\b\\d
 private let loginCodeRegex = try? NSRegularExpression(pattern: "\\b\\d{5,8}\\b", options: [])
 
 public class ChatListItemNode: ItemListRevealOptionsItemNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListItemNodeView.self
+    }
+#endif
     final class TopicItemNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class TopicItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return TopicItemNodeView.self
+    }
+#endif
         let topicTitleNode: TextNode
         let titleTopicIconView: ComponentHostView<Empty>
         var titleTopicIconComponent: EmojiStatusComponent
@@ -1039,6 +1055,14 @@ public class ChatListItemNode: ItemListRevealOptionsItemNode {
     }
     
     public final class AuthorNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class AuthorNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return AuthorNodeView.self
+    }
+#endif
         public let authorNode: TextNode
         var titleTopicArrowNode: ASImageNode?
         var topicNodes: [Int64: TopicItemNode] = [:]

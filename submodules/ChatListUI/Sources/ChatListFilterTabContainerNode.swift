@@ -525,6 +525,14 @@ public enum ChatListFilterTabEntry: Equatable {
 }
 
 public final class ChatListFilterTabContainerNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListFilterTabContainerNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListFilterTabContainerNodeView.self
+    }
+#endif
     private let context: AccountContext
     private let scrollNode: ASScrollNode
     private let selectedLineNode: ASImageNode

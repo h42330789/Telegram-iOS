@@ -34,6 +34,14 @@ private let inlineBotPrefixFont = Font.regular(14.0)
 private let inlineBotNameFont = nameFont
 
 public class ChatMessageStickerItemNode: ChatMessageItemView {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageStickerItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageStickerItemNodeView.self
+    }
+#endif
     public let contextSourceNode: ContextExtractedContentContainingNode
     private let containerNode: ContextControllerSourceNode
     public let imageNode: TransformImageNode

@@ -1190,6 +1190,13 @@ public enum ChatListNodeEmptyState: Equatable {
 }
 
 public final class ChatListNode: ListView {
+#if DEBUG
+    public class ChatListNodeImplView: ListViewBackingView { }
+    override public func listViewImplView() -> ListViewBackingView? {
+        return ChatListNodeImplView()
+    }
+#endif
+
     public enum OpenStoriesSubject {
         case peer(EnginePeer.Id)
         case archive

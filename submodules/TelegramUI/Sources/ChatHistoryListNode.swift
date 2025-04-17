@@ -465,6 +465,13 @@ private struct ChatHistoryAnimatedEmojiConfiguration {
 private var nextClientId: Int32 = 1
 
 public final class ChatHistoryListNodeImpl: ListView, ChatHistoryNode, ChatHistoryListNode {
+#if DEBUG
+    public class ChatHistoryListNodeImplView: ListViewBackingView { }
+    override public func listViewImplView() -> ListViewBackingView? {
+        return ChatHistoryListNodeImplView()
+    }
+#endif
+    
     static let fixedAdMessageStableId: UInt32 = UInt32.max - 5000
     
     public let context: AccountContext

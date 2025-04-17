@@ -326,7 +326,23 @@ private final class EffectImageLayer: SimpleLayer, GradientBackgroundPatternOver
 }
 
 public final class WallpaperBackgroundNodeImpl: ASDisplayNode, WallpaperBackgroundNode {
+#if DEBUG
+    class WallpaperBackgroundNodeImplView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return WallpaperBackgroundNodeImplView.self
+    }
+#endif
     final class BubbleBackgroundNodeImpl: ASDisplayNode, WallpaperBubbleBackgroundNode {
+#if DEBUG
+    class BubbleBackgroundNodeImplView: _ASDisplayView {
+        
+    }
+    override public class func viewClass() -> AnyClass {
+        return BubbleBackgroundNodeImplView.self
+    }
+#endif
         var implicitContentUpdate: Bool = true
         
         private let bubbleType: WallpaperBubbleType
