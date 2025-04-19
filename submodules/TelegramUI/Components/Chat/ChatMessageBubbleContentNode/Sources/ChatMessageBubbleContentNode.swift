@@ -207,6 +207,14 @@ public final class ChatMessageBubbleContentItem {
 }
 
 open class ChatMessageBubbleContentNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    open class ChatMessageBubbleContentNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageBubbleContentNodeView.self
+    }
+#endif
     open var supportsMosaic: Bool {
         return false
     }

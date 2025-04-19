@@ -780,7 +780,30 @@ ASSynthesizeLockingMethodsWithMutex(__instanceLock__);
 - (BOOL)supportsLayerBacking
 {
   MutexLocker l(__instanceLock__);
+#if DEBUG
+    if (!checkFlag(Synchronous) == NO) {
+        return NO;
+    }
+    if (!_flags.viewEverHadAGestureRecognizerAttached == NO) {
+        return NO;
+    }
+    if ([_viewClass isSubclassOfClass:[_ASDisplayView class]] == NO) {
+        return NO;
+    }
+    if ([_layerClass isSubclassOfClass:[_ASDisplayLayer class]] == NO) {
+        return NO;
+    }
+    Boolean result = !checkFlag(Synchronous)
+          && !_flags.viewEverHadAGestureRecognizerAttached
+          && [_viewClass isSubclassOfClass:[_ASDisplayView class]]
+          && [_layerClass isSubclassOfClass:[_ASDisplayLayer class]];
+    if (result == NO) {
+        NSLog(@"");
+    }
+    return result;
+#else
   return !checkFlag(Synchronous) && !_flags.viewEverHadAGestureRecognizerAttached && _viewClass == [_ASDisplayView class] && _layerClass == [_ASDisplayLayer class];
+#endif
 }
 
 - (BOOL)shouldAnimateSizeChanges

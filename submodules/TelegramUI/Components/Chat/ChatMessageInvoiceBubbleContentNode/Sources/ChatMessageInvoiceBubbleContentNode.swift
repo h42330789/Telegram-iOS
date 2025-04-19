@@ -15,6 +15,14 @@ private let titleFont: UIFont = Font.semibold(15.0)
 private let textFont: UIFont = Font.regular(15.0)
 
 public final class ChatMessageInvoiceBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageInvoiceBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageInvoiceBubbleContentNodeView.self
+    }
+#endif
     private var invoice: TelegramMediaInvoice?
     
     private let contentNode: ChatMessageAttachedContentNode

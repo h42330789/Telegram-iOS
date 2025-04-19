@@ -59,6 +59,14 @@ public enum ChatMessageBackgroundType: Equatable {
 }
 
 public class ChatMessageBackground: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageBackgroundView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageBackgroundView.self
+    }
+#endif
     public weak var backdropNode: ChatMessageBubbleBackdrop?
         
     public private(set) var type: ChatMessageBackgroundType?
@@ -492,6 +500,14 @@ public func bubbleMaskForType(_ type: ChatMessageBackgroundType, graphics: Princ
 }
 
 public final class ChatMessageBubbleBackdrop: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageBubbleBackdropView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageBubbleBackdropView.self
+    }
+#endif
     public private(set) var backgroundContent: WallpaperBubbleBackgroundNode?
     
     private var currentType: ChatMessageBackgroundType?

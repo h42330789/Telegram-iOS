@@ -82,6 +82,14 @@ private func findQuoteRange(string: String, quoteText: String, offset: Int?) -> 
 }
 
 public class ChatMessageTextBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageTextBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageTextBubbleContentNodeView.self
+    }
+#endif
     private let containerNode: ASDisplayNode
     private let textNode: InteractiveTextNodeWithEntities
     

@@ -27,6 +27,14 @@ private let textFont = Font.regular(13.0)
 private let boldTextFont = Font.semibold(13.0)
 
 public class ChatMessageGiveawayBubbleContentNode: ChatMessageBubbleContentNode, ASGestureRecognizerDelegate {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageGiveawayBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageGiveawayBubbleContentNodeView.self
+    }
+#endif
     private let dateAndStatusNode: ChatMessageDateAndStatusNode
     
     private let placeholderNode: StickerShimmerEffectNode

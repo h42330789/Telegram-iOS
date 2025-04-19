@@ -59,6 +59,14 @@ public final class ItemListRevealOptionsGestureRecognizer: UIPanGestureRecognize
 }
 
 open class ItemListRevealOptionsItemNode: ListViewItemNode, ASGestureRecognizerDelegate {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    open class ItemListRevealOptionsItemNodeView: ListViewItemNode.ListViewItemNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ItemListRevealOptionsItemNodeView.self
+    }
+#endif
     private var validLayout: (CGSize, CGFloat, CGFloat)?
     
     private var leftRevealNode: ItemListRevealOptionsNode?

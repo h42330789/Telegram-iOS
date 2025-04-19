@@ -6,6 +6,14 @@ import Postbox
 import AccountContext
 
 public class ListMessageNode: ListViewItemNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    open class ListMessageNodeView: ListViewItemNode.ListViewItemNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+//    override public class func viewClass() -> AnyClass {
+//        return ListMessageFileItemNodeView.self
+//    }
+#endif
     var item: ListMessageItem?
     var interaction: ListMessageItemInteraction?
     

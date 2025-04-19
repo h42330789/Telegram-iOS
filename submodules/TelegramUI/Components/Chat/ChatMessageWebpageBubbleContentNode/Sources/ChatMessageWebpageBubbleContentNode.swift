@@ -23,6 +23,14 @@ import ChatControllerInteraction
 private let titleFont: UIFont = Font.semibold(15.0)
 
 public final class ChatMessageWebpageBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageWebpageBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageWebpageBubbleContentNodeView.self
+    }
+#endif
     private var webPage: TelegramMediaWebpage?
     
     public private(set) var contentNode: ChatMessageAttachedContentNode

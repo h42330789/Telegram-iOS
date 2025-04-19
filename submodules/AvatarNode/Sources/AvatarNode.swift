@@ -267,6 +267,14 @@ public final class AvatarEditOverlayNode: ASDisplayNode {
 }
 
 public final class AvatarNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class AvatarNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return AvatarNodeView.self
+    }
+#endif
     public static let gradientColors: [[UIColor]] = [
         [UIColor(rgb: 0xff516a), UIColor(rgb: 0xff885e)],
         [UIColor(rgb: 0xffa85c), UIColor(rgb: 0xffcd6a)],
@@ -294,6 +302,14 @@ public final class AvatarNode: ASDisplayNode {
     ]
     
     public final class ContentNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ContentNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ContentNodeView.self
+    }
+#endif
         private struct Params: Equatable {
             let peerId: EnginePeer.Id?
             let resourceId: String?

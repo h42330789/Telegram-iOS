@@ -124,6 +124,9 @@ __unused static NSString * _Nonnull NSStringFromASHierarchyStateChange(ASHierarc
 
 // The view class to use when creating a new display node instance. Defaults to _ASDisplayView.
 + (Class)viewClass;
+#if DEBUG
++ (Class)layerClass;
+#endif
 
 // Thread safe way to access the bounds of the node
 @property (nonatomic) CGRect threadSafeBounds;

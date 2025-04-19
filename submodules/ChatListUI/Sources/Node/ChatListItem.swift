@@ -850,6 +850,14 @@ private final class CachedCustomTextEntities {
 private let playIconImage = UIImage(bundleImageName: "Chat List/MiniThumbnailPlay")?.precomposed()
 
 private final class ChatListMediaPreviewNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatListMediaPreviewNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatListMediaPreviewNodeView.self
+    }
+#endif
     private let context: AccountContext
     let message: EngineMessage
     let media: EngineMedia
@@ -953,10 +961,32 @@ private let loginCodeRegex = try? NSRegularExpression(pattern: "\\b\\d{5,8}\\b",
 public class ChatListItemNode: ItemListRevealOptionsItemNode {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ChatListItemNodeView: _ASDisplayView { }
+    class ChatListItemNodeView: ItemListRevealOptionsItemNode.ItemListRevealOptionsItemNodeView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
     override public class func viewClass() -> AnyClass {
         return ChatListItemNodeView.self
+    }
+#endif
+#if DEBUG
+    final class MainContentContainerNode: ASDisplayNode {
+    
+        // 提供一个_ASDisplayView的子类即可
+        class MainContentContainerNodeView: _ASDisplayView { }
+        // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+        override public class func viewClass() -> AnyClass {
+            return MainContentContainerNodeView.self
+        }
+    
+    }
+    final class AvatarContainerNode: ASDisplayNode {
+    
+        // 提供一个_ASDisplayView的子类即可
+        class AvatarContainerNodeView: _ASDisplayView { }
+        // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+        override public class func viewClass() -> AnyClass {
+            return AvatarContainerNodeView.self
+        }
+    
     }
 #endif
     final class TopicItemNode: ASDisplayNode {
@@ -1535,16 +1565,22 @@ public class ChatListItemNode: ItemListRevealOptionsItemNode {
         self.backgroundNode = ASDisplayNode()
         self.backgroundNode.isLayerBacked = true
         self.backgroundNode.displaysAsynchronously = false
-        
+        #if DEBUG
+        self.avatarContainerNode = AvatarContainerNode()
+        #else
         self.avatarContainerNode = ASDisplayNode()
+        #endif
         self.avatarNode = AvatarNode(font: avatarPlaceholderFont(size: 26.0))
         
         self.highlightedBackgroundNode = ASDisplayNode()
         self.highlightedBackgroundNode.isLayerBacked = true
         
         self.contextContainer = ContextControllerSourceNode()
-        
+        #if DEBUG
+        self.mainContentContainerNode = MainContentContainerNode()
+        #else
         self.mainContentContainerNode = ASDisplayNode()
+        #endif
         self.mainContentContainerNode.clipsToBounds = true
         
         self.measureNode = TextNode()

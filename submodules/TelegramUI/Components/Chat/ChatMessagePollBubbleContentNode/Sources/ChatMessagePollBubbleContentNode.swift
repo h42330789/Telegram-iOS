@@ -843,6 +843,14 @@ private final class SolutionButtonNode: HighlightableButtonNode {
 }
 
 public class ChatMessagePollBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessagePollBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessagePollBubbleContentNodeView.self
+    }
+#endif
     private let textNode: TextNodeWithEntities
     private let typeNode: TextNode
     private var timerNode: PollBubbleTimerNode?

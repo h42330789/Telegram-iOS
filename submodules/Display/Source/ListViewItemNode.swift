@@ -89,6 +89,14 @@ private final class ControlledTransitionContext {
 }
 
 open class ListViewItemNode: ASDisplayNode, AccessibilityFocusableNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    open class ListViewItemNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+//    override open class func viewClass() -> AnyClass {
+//        return ListViewItemNodeView.self
+//    }
+#endif
     public struct HeaderId: Hashable {
         public var space: AnyHashable
         public var id: AnyHashable

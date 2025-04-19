@@ -94,6 +94,14 @@ private struct BubbleItemAttributes {
 }
 
 private final class ChatMessageBubbleClippingNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageBubbleClippingNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageBubbleClippingNodeView.self
+    }
+#endif
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let result = self.view.hitTest(point, with: event)
         if result === self.view {
@@ -464,16 +472,18 @@ private func mapVisibility(_ visibility: ListViewItemNodeVisibility, boundsSize:
 public class ChatMessageBubbleItemNode: ChatMessageItemView, ChatMessagePreviewItemNode {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ChatMessageBubbleItemNodeView: _ASDisplayView { }
+    class ChatMessageBubbleItemNodeView: ChatMessageItemView.ChatMessageItemViewView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
-    override public class func viewClass() -> AnyClass {
+    override open class func viewClass() -> AnyClass {
         return ChatMessageBubbleItemNodeView.self
     }
+#endif
+#if DEBUG
     class ChatBubbleMainContainerNode: ContextControllerSourceNode {
         // 提供一个_ASDisplayView的子类即可
         class ChatBubbleMainContainerNodeView: _ASDisplayView { }
         // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
-        override public class func viewClass() -> AnyClass {
+        override open class func viewClass() -> AnyClass {
             return ChatBubbleMainContainerNodeView.self
         }
     }

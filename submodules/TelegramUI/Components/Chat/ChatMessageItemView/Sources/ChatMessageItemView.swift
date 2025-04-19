@@ -649,6 +649,14 @@ public enum InternalBubbleTapAction {
 }
 
 open class ChatMessageItemView: ListViewItemNode, ChatMessageItemNodeProtocol {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    open class ChatMessageItemViewView: ListViewItemNode.ListViewItemNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageItemViewView.self
+    }
+#endif
     public let layoutConstants = (ChatMessageItemLayoutConstants.compact, ChatMessageItemLayoutConstants.regular)
     
     open var item: ChatMessageItem?

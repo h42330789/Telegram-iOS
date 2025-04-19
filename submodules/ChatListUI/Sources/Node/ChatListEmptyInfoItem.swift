@@ -61,7 +61,7 @@ class ChatListEmptyInfoItem: ListViewItem {
 class ChatListEmptyInfoItemNode: ListViewItemNode {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ChatListEmptyInfoItemNodeView: _ASDisplayView { }
+    class ChatListEmptyInfoItemNodeView: ListViewItemNode.ListViewItemNodeView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
     override public class func viewClass() -> AnyClass {
         return ChatListEmptyInfoItemNodeView.self
@@ -212,7 +212,7 @@ class ChatListSectionHeaderItem: ListViewItem {
 class ChatListSectionHeaderNode: ListViewItemNode {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ChatListSectionHeaderNodeView: _ASDisplayView { }
+    class ChatListSectionHeaderNodeView: ListViewItemNode.ListViewItemNodeView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
     override public class func viewClass() -> AnyClass {
         return ChatListSectionHeaderNodeView.self

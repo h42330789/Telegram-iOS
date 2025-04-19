@@ -159,7 +159,7 @@ private final class InfoPageNode: ASDisplayNode {
 class ChatListArchiveInfoItemNode: ListViewItemNode, ASScrollViewDelegate {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ChatListArchiveInfoItemNodeView: _ASDisplayView { }
+    class ChatListArchiveInfoItemNodeView: ListViewItemNode.ListViewItemNodeView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
     override public class func viewClass() -> AnyClass {
         return ChatListArchiveInfoItemNodeView.self

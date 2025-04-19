@@ -25,7 +25,7 @@ private let iconTextBackgroundImage = generateStretchableFilledCircleImage(radiu
 public final class ListMessageSnippetItemNode: ListMessageNode {
 #if DEBUG
     // 提供一个_ASDisplayView的子类即可
-    class ListMessageSnippetItemNodeView: _ASDisplayView { }
+    class ListMessageSnippetItemNodeView: ListMessageNode.ListMessageNodeView { }
     // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
     override public class func viewClass() -> AnyClass {
         return ListMessageSnippetItemNodeView.self

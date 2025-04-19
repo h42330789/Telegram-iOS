@@ -11,6 +11,14 @@ import ChatMessageItemCommon
 import ChatMessageAttachedContentButtonNode
 
 public final class ChatMessageUnsupportedBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageUnsupportedBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override public class func viewClass() -> AnyClass {
+        return ChatMessageUnsupportedBubbleContentNodeView.self
+    }
+#endif
     private var buttonNode: ChatMessageAttachedContentButtonNode
     
     required public init() {

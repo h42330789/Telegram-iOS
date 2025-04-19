@@ -4,6 +4,14 @@ import Display
 import GenerateStickerPlaceholderImage
 
 public class StickerShimmerEffectNode: ASDisplayNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class StickerShimmerEffectNodeView: _ASDisplayView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return StickerShimmerEffectNodeView.self
+    }
+#endif
     private var backdropNode: ASDisplayNode?
     private let backgroundNode: ASDisplayNode
     private let effectNode: ShimmerEffectForegroundNode

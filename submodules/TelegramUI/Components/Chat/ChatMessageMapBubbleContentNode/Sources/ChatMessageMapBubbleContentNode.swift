@@ -20,6 +20,14 @@ private let liveTitleFont = Font.medium(16.0)
 private let textFont = Font.regular(14.0)
 
 public class ChatMessageMapBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageMapBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageMapBubbleContentNodeView.self
+    }
+#endif
     private let imageNode: TransformImageNode
     private let pinNode: ChatMessageLiveLocationPositionNode
     private let dateAndStatusNode: ChatMessageDateAndStatusNode

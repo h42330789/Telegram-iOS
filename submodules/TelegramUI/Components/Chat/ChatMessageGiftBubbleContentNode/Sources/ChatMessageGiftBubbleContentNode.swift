@@ -30,6 +30,14 @@ private func attributedServiceMessageString(theme: ChatPresentationThemeData, st
 }
 
 public class ChatMessageGiftBubbleContentNode: ChatMessageBubbleContentNode {
+#if DEBUG
+    // 提供一个_ASDisplayView的子类即可
+    class ChatMessageGiftBubbleContentNodeView: ChatMessageBubbleContentNode.ChatMessageBubbleContentNodeView { }
+    // 提在ASDisplayNode的子类里重写viewClass方法，返回个_ASDisplayView的子类的类型即可
+    override open class func viewClass() -> AnyClass {
+        return ChatMessageGiftBubbleContentNodeView.self
+    }
+#endif
     private let labelNode: TextNode
     private var backgroundNode: WallpaperBubbleBackgroundNode?
     private let backgroundMaskNode: ASImageNode
